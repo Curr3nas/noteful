@@ -26,7 +26,7 @@ export default class AddFolder extends Component {
     const folder = {
       name: this.state.name.value
     }
-    fetch(`${config.API_ENDPOINT}/folders`, {
+    fetch(`https://noteful-backend-douglas.herokuapp.com/folders`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
