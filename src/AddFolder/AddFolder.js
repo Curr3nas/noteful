@@ -24,7 +24,7 @@ export default class AddFolder extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const folder = {
-      name: e.target['folder-name'].value
+      name: this.state.name.value
     }
     fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
@@ -36,7 +36,6 @@ export default class AddFolder extends Component {
       .then(res => {
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
-        return res.json()
       })
       .then(folder => {
         this.context.addFolder(folder)
