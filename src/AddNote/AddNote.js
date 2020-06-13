@@ -109,7 +109,7 @@ export default class AddNote extends Component {
             <label htmlFor='note-name-input'>
               Name
             </label>
-            <input type='text' id='note-name-input' name='note-name' onChange={e => this.updateNoteName(e.target.value)}/>
+            <input type='text' id='note-name-input' name='note-name' onChange={e => this.updateNoteName(e.target.value)} required/>
             {this.state.name.touched && <ValidationError message={this.validateName()} />}
           </div>
           <div className='field'>

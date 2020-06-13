@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
-import ApiContext from '../ApiContext'
-import config from '../config'
-import './AddFolder.css'
-import ErrorPage from '../Errors/ErrorPage'
-import ValidationError from '../Errors/ValidationError'
+import React, { Component } from 'react';
+import NotefulForm from '../NotefulForm/NotefulForm';
+import ApiContext from '../ApiContext';
+import config from '../config';
+import './AddFolder.css';
+import ErrorPage from '../Errors/ErrorPage';
+import ValidationError from '../Errors/ValidationError';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class AddFolder extends Component {
   constructor(props) {
@@ -23,10 +24,15 @@ export default class AddFolder extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+
     const folder = {
+      id: uuidv4(),
       name: this.state.name.value
     }
-    fetch(`https://noteful-backend-douglas.herokuapp.com/folders`, {
+
+    console.log('line 32', folder)
+
+    fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -34,10 +40,12 @@ export default class AddFolder extends Component {
       body: JSON.stringify(folder),
     })
       .then(res => {
+        console.log(res)
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
       })
-      .then(folder => {
+      .then(() => {
+        console.log('line 46', folder)
         this.context.addFolder(folder)
         this.props.history.push(`/folder/${folder.id}`)
       })
